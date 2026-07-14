@@ -15,6 +15,12 @@ import { useEffect } from 'react';
 export default function Home() {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
+    // Safety net: ensure scroll is always restored even if the
+    // LoadingScreen's onAnimationComplete callback doesn't fire.
+    const safety = setTimeout(() => {
+      document.body.style.overflow = 'auto';
+    }, 2200);
+    return () => clearTimeout(safety);
   }, []);
 
   return (

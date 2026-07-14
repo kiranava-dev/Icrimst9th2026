@@ -11,6 +11,14 @@ export function LoadingScreen() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    // Ensure scroll is unlocked once this component unmounts,
+    // regardless of whether the fade-out animation fired its callback.
+    if (!isLoading) {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isLoading]);
+
   if (!isLoading) return null;
 
   return (
